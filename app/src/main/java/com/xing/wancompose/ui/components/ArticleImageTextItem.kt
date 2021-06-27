@@ -41,13 +41,15 @@ fun ArticleImageTextItem(article: Article) {
                 )
             }
         }
-
         Spacer(modifier = Modifier.width(10.dp))
-
         Image(
             modifier = Modifier
                 .width(90.dp)
                 .height(70.dp),
+//            painter = rememberCoilPainter(
+//                request = article.envelopePic,
+//                fadeIn = true
+//            ),
             painter = painterResource(id = R.drawable.ic_launcher_background),
             contentDescription = null,
             contentScale = ContentScale.Crop

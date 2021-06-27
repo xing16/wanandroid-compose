@@ -8,6 +8,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.xing.wancompose.ui.LoginScreen
 import com.xing.wancompose.ui.main.MainScreen
 import com.xing.wancompose.ui.theme.WanandroidcomposeTheme
 
@@ -18,7 +19,8 @@ class MainActivity : ComponentActivity() {
             WanandroidcomposeTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainScreen()
+//                    MainScreen()
+                    LoginScreen()
                 }
             }
         }

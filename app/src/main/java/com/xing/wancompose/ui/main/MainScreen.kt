@@ -25,7 +25,7 @@ import com.xing.wancompose.ui.square.SquareScreen
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val curIndex = remember {
+    val curIndex by remember {
         mutableStateOf(0)
     }
     Scaffold(
@@ -39,14 +39,11 @@ fun MainScreen() {
                         selected = (currentRoute == screen.route),
                         onClick = {
                             navController.navigate(screen.route) {
-//                                popUpTo(navController.graph.findStartDestination().id) {
-//                                    saveState = true
-//                                }
-//                                // Avoid multiple copies of the same destination when
-//                                // reselecting the same item
-//                                launchSingleTop = true
-//                                // Restore state when reselecting a previously selected item
-//                                restoreState = true
+                                // Avoid multiple copies of the same destination when
+                                // reselecting the same item
+                                launchSingleTop = true
+                                // Restore state when reselecting a previously selected item
+                                restoreState = true
                             }
                         },
                         icon = {
