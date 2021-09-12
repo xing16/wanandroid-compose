@@ -15,11 +15,11 @@ import com.xing.xueandroid.entity.ProjectCategory
  * @UpdateDate: 2021/5/26 10:02
  * @UpdateRemark: 无
  */
-interface IWanRepository {
+interface IXueRepository {
 
     suspend fun getArticle(page: Int): Flow<Result<ArticleData>>
 
     suspend fun getProjectCategory(): Flow<Result<List<ProjectCategory>>>
 
-    suspend fun getProjectCategoryList(page: Int, cid: Int): Flow<Result<ArticleData>>
+    suspend fun getProjectList(cid: Int, page: Int): Flow<Result<ArticleData>>
 }

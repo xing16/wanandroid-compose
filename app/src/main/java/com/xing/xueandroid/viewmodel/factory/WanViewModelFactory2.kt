@@ -3,7 +3,7 @@ package com.xing.xueandroid.viewmodel.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.xing.xueandroid.viewmodel.StateFlowViewModel
-import com.xing.xueandroid.repository.IWanRepository
+import com.xing.xueandroid.repository.IXueRepository
 
 /**
  *
@@ -16,13 +16,13 @@ import com.xing.xueandroid.repository.IWanRepository
  * @UpdateRemark: 无
  */
 class WanViewModelFactory2(
-   private val iWanRepository: IWanRepository
+   private val iXueRepository: IXueRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass == StateFlowViewModel::class.java) {
-            return StateFlowViewModel(iWanRepository) as T
+            return StateFlowViewModel(iXueRepository) as T
         }
         return super.create(modelClass)
     }

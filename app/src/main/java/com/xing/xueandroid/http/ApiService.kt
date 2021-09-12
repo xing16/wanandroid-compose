@@ -35,7 +35,7 @@ interface ApiService {
     /**
      * 项目列表
      */
-    @GET("project/list/{page}/json?cid={cid}")
+    @GET("project/list/{page}/json")
     suspend fun getProjectCategoryList(
         @Path("page") page: Int,
         @Query("cid") cid: Int

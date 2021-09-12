@@ -1,13 +1,11 @@
 package com.xing.xueandroid.repository
 
+import com.xing.xueandroid.datasource.XueRemoteDataSource
 import com.xing.xueandroid.http.Result
 import com.xing.xueandroid.entity.ArticleData
-import com.xing.xueandroid.datasource.WanRemoteDataSource
 import com.xing.xueandroid.entity.ProjectCategory
-import com.xing.xueandroid.http.Response
 import com.xing.xueandroid.params.Page
 import kotlinx.coroutines.flow.Flow
-import kotlin.reflect.KSuspendFunction0
 
 /**
  *
@@ -19,9 +17,9 @@ import kotlin.reflect.KSuspendFunction0
  * @UpdateDate: 2021/5/26 10:03
  * @UpdateRemark: 无
  */
-class WanRepositoryImpl(
-    private val remoteDataSource: WanRemoteDataSource
-) : BaseRepository(), IWanRepository {
+class XueRepositoryImpl(
+    private val remoteDataSource: XueRemoteDataSource
+) : BaseRepository(), IXueRepository {
 
     override suspend fun getArticle(page: Int): Flow<Result<ArticleData>> {
         return getArticleRemote2(page)
@@ -31,8 +29,8 @@ class WanRepositoryImpl(
         return execute("", remoteDataSource::getProjectCategory)
     }
 
-    override suspend fun getProjectCategoryList(page: Int, cid: Int): Flow<Result<ArticleData>> {
-        return execute(Page(page, cid), remoteDataSource::getProjectCategoryList)
+    override suspend fun getProjectList(cid: Int, page: Int): Flow<Result<ArticleData>> {
+        return execute(Page(page, cid), remoteDataSource::getProjectList)
     }
 
 

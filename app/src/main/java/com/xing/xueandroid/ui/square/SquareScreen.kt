@@ -12,15 +12,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun SquareScreen(navController: NavHostController) {
+fun SquareScreen(appNavController: NavHostController) {
+    val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "first_screen") {
         composable("first_screen") {
-            FirstScreen(navController)
+            FirstScreen(appNavController)
         }
         composable("second_screen") {
-            SecondScreen(navController)
+            SecondScreen(appNavController)
         }
     }
 }

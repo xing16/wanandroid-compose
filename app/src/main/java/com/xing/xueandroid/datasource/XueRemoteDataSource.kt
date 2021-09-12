@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.Flow
  * @UpdateDate: 2021/5/24 10:29
  * @UpdateRemark: 无
  */
-class WanRemoteDataSource {
+class XueRemoteDataSource {
 
     suspend fun getArticles(page: Int): Response<ArticleData> {
         return RetrofitClient.create(ApiService::class.java).getHomeArticleList(page)
@@ -29,8 +29,8 @@ class WanRemoteDataSource {
         return RetrofitClient.create(ApiService::class.java).getProjectCategory()
     }
 
-    suspend fun getProjectCategoryList(page: Page): Response<ArticleData> {
-        return RetrofitClient.create(ApiService::class.java).getProjectCategoryList(page.page, page.id)
+    suspend fun getProjectList(page: Page): Response<ArticleData> {
+        return RetrofitClient.create(ApiService::class.java).getProjectCategoryList(page.page, page.cid)
     }
 
 }

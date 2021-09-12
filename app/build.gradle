@@ -93,4 +93,12 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:0.17.0"
 
 
+    // Current version
+    def koin_version = "3.1.2"
+    // include koin-android-scope & koin-android
+    implementation "io.insert-koin:koin-android:$koin_version"
+    // Koin for Jetpack Compose
+    implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+
+
 }

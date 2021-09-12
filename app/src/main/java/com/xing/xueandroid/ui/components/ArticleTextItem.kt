@@ -1,6 +1,7 @@
 package com.xing.xueandroid.ui.components
 
 import android.text.TextUtils
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -10,8 +11,13 @@ import androidx.compose.ui.unit.dp
 import com.xing.xueandroid.entity.Article
 
 @Composable
-fun ArticleTextItem(modifier: Modifier = Modifier, childModifier: Modifier = Modifier, article: Article) {
-    Column(modifier = Modifier.padding(13.dp)) {
+fun ArticleTextItem(modifier: Modifier = Modifier, childModifier: Modifier = Modifier, article: Article, onItemClick: (article: Article) -> Unit = {}) {
+    Column(modifier = Modifier
+        .clickable {
+            onItemClick(article)
+        }
+        .padding(13.dp)
+    ) {
         Text(
             modifier = childModifier
                 .fillMaxWidth()
