@@ -2,6 +2,7 @@ package com.xing.playandroid.ui.components
 
 import android.annotation.SuppressLint
 import android.webkit.WebChromeClient
+import android.webkit.WebHistoryItem
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
@@ -14,12 +15,13 @@ fun WebView(modifier: Modifier = Modifier, url: String, onReceivedTitle: (String
     AndroidView(factory = { context ->
         val webView = WebView(context)
         webView.settings.javaScriptEnabled = true
+        webView.settings.setGeolocationEnabled(true)
+        webView.settings.setSupportZoom(false)
         webView.settings.javaScriptCanOpenWindowsAutomatically = true
         webView.settings.domStorageEnabled = true
         webView.settings.loadsImagesAutomatically = true
         webView.settings.mediaPlaybackRequiresUserGesture = true
-        webView.webViewClient = WebViewClient()
-        webView.webChromeClient = PlayWebChromeClient(onReceivedTitle)
+        webView.webViewClient = PlayWebViewClient(onReceivedTitle)
         webView.loadUrl(url)
         webView
     }, update = {
@@ -28,12 +30,11 @@ fun WebView(modifier: Modifier = Modifier, url: String, onReceivedTitle: (String
 }
 
 
-class PlayWebChromeClient(private val onReceivedTitle: (String) -> Unit = {}) : WebChromeClient() {
-
-    override fun onReceivedTitle(view: WebView?, title: String?) {
-        super.onReceivedTitle(view, title)
-        title?.let {
-            onReceivedTitle(it)
+class PlayWebViewClient(private val onReceivedTitle: (String) -> Unit = {}) : WebViewClient() {
+    override fun onPageFinished(view: WebView?, url: String?) {
+        super.onPageFinished(view, url)
+        view?.let {
+            onReceivedTitle(it.title ?: "")
         }
     }
 }

@@ -14,6 +14,10 @@ sealed class Screen(val route: String) {
     object Main : Screen("play://main")
     object Wheel : Screen("play://wheel")
     object Web : Screen("play://webView")
+    object Search : Screen("play://search")
+    object SearchHistory : Screen("play://search/history")
+    object SearchResult : Screen("play://search/result")
+    object Login : Screen("play://login")
 }
 
 sealed class TabScreen(route: String, @StringRes val resourceId: Int, val iconVector: ImageVector) : Screen(route) {

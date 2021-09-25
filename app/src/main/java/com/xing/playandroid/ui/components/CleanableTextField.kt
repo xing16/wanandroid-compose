@@ -3,6 +3,8 @@ package com.xing.playandroid.ui.components
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -15,13 +17,14 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun CleanableTextField(
+    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String) -> Unit,
-    placeholder: String?,
-    leadingIconVector: ImageVector,
-    trailingIcon: @Composable (() -> Unit)? = null,
+    placeholder: String? = null,
+    leadingIconVector: ImageVector? = null,
+    trailingIcon: @Composable (() -> Unit) = {},
     isPassword: Boolean = false,
-    onFocusChanged: ((Boolean) -> Unit)? = null
+    onFocusChanged: ((Boolean) -> Unit) = {}
 ) {
     var hasFocus by remember {
         mutableStateOf(false)
@@ -29,23 +32,25 @@ fun CleanableTextField(
     TextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = Modifier
+        modifier = modifier
             .height(50.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(25.dp))
             .onFocusChanged {
                 hasFocus = it.isFocused
-                onFocusChanged?.invoke(hasFocus)
+                onFocusChanged.invoke(hasFocus)
             },
         leadingIcon = {
-            Icon(
-                imageVector = leadingIconVector,
-                contentDescription = null,
-                modifier = Modifier
-                    .padding(10.dp)
-                    .size(20.dp),
-                tint = if (hasFocus) MaterialTheme.colors.primary else LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-            )
+            leadingIconVector?.let {
+                Icon(
+                    imageVector = leadingIconVector,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .size(20.dp),
+                    tint = if (hasFocus) MaterialTheme.colors.primary else LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+                )
+            }
         },
         trailingIcon = if (hasFocus && value.isNotEmpty()) trailingIcon else null,
         singleLine = true,

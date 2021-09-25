@@ -3,6 +3,8 @@ package com.xing.playandroid
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
@@ -16,10 +18,14 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xing.playandroid.ui.Screen
+import com.xing.playandroid.ui.login.LoginScreen
+import com.xing.playandroid.ui.search.SearchScreen
 import com.xing.playandroid.ui.theme.PlayandroidTheme
 import com.xing.playandroid.ui.webview.WebViewScreen
 import com.xing.playandroid.ui.wheel.WheelScreen
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @ExperimentalPagerApi
 @ExperimentalAnimationApi
 @Composable
@@ -42,6 +48,12 @@ fun PlayApp() {
                 }
                 composable(route = Screen.Wheel.route) {
                     WheelScreen()
+                }
+                composable(route = Screen.Search.route) {
+                    SearchScreen(navController)
+                }
+                composable(route = Screen.Login.route) {
+                    LoginScreen(navController = navController)
                 }
                 composable(
                     route = "${Screen.Web}/{url}",

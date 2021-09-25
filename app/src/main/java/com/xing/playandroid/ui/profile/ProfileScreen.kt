@@ -21,7 +21,7 @@ fun ProfileScreen(navController: NavHostController) {
         modifier = Modifier
             .height(200.dp)
             .clickable {
-                navController.navigate(Screen.Wheel.route)
+                navController.navigate(Screen.Login.route)
             },
         contentScale = ContentScale.Crop,
 

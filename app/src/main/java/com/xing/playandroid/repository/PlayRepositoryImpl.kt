@@ -4,7 +4,9 @@ import com.xing.playandroid.datasource.PlayRemoteDataSource
 import com.xing.playandroid.http.Result
 import com.xing.playandroid.entity.ArticleData
 import com.xing.playandroid.entity.ProjectCategory
+import com.xing.playandroid.entity.SearchHot
 import com.xing.playandroid.params.Page
+import com.xing.playandroid.params.SearchParam
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -33,9 +35,15 @@ class PlayRepositoryImpl(
         return execute(Page(page, cid), remoteDataSource::getProjectList)
     }
 
+    override suspend fun getSearchHot(): Flow<Result<List<SearchHot>>> {
+        return execute("", remoteDataSource::getSearchHot)
+    }
+
+    override suspend fun search(keyword: String, page: Int): Flow<Result<ArticleData>> {
+        return execute(SearchParam(keyword, page), remoteDataSource::search)
+    }
 
     private suspend fun getArticleRemote2(page: Int): Flow<Result<ArticleData>> {
         return execute(page, remoteDataSource::getArticles)
     }
-
 }

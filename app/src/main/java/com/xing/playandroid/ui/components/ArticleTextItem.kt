@@ -28,7 +28,7 @@ fun ArticleTextItem(
                 .fillMaxWidth()
                 .wrapContentHeight(),
             text = article.title,
-            style = MaterialTheme.typography.h1
+            style = MaterialTheme.typography.h2
         )
         Spacer(modifier = Modifier.height(10.dp))
         Row(
@@ -37,18 +37,18 @@ fun ArticleTextItem(
         ) {
             Text(
                 text = "作者: ",
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.caption
             )
-            Text(text = if (TextUtils.isEmpty(article.author)) article.shareUser ?: "-" else article.author ?: "-", style = MaterialTheme.typography.body2)
+            Text(text = if (TextUtils.isEmpty(article.author)) article.shareUser ?: "-" else article.author ?: "-", style = MaterialTheme.typography.caption)
             Spacer(modifier = Modifier.width(10.dp))
             Text(
                 text = "分类: ",
-                style = MaterialTheme.typography.body2
+                style = MaterialTheme.typography.caption
             )
-            Text(text = article.chapterName ?: "-", style = MaterialTheme.typography.body2)
+            Text(text = article.chapterName ?: "-", style = MaterialTheme.typography.caption)
             Spacer(modifier = Modifier.width(10.dp))
-            Text(text = "时间: ", style = MaterialTheme.typography.body2)
-            Text(text = article.niceShareDate ?: "-", style = MaterialTheme.typography.body2)
+            Text(text = "时间: ", style = MaterialTheme.typography.caption)
+            Text(text = article.niceShareDate ?: "-", style = MaterialTheme.typography.caption)
         }
     }
 }

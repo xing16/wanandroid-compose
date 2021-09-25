@@ -92,6 +92,8 @@ dependencies {
     // If using indicators, also depend on
     implementation "com.google.accompanist:accompanist-pager-indicators:0.17.0"
 
+    implementation "com.google.accompanist:accompanist-flowlayout:0.17.0"
+
 
     // Current version
     def koin_version = "3.1.2"

@@ -4,6 +4,7 @@ import kotlinx.coroutines.flow.Flow
 import com.xing.playandroid.http.Result
 import com.xing.playandroid.entity.ArticleData
 import com.xing.playandroid.entity.ProjectCategory
+import com.xing.playandroid.entity.SearchHot
 
 /**
  *
@@ -22,4 +23,8 @@ interface IPlayRepository {
     suspend fun getProjectCategory(): Flow<Result<List<ProjectCategory>>>
 
     suspend fun getProjectList(cid: Int, page: Int): Flow<Result<ArticleData>>
+
+    suspend fun getSearchHot(): Flow<Result<List<SearchHot>>>
+
+    suspend fun search(keyword: String, page: Int): Flow<Result<ArticleData>>
 }

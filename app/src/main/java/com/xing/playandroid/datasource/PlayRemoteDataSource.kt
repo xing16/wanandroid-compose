@@ -5,7 +5,9 @@ import com.xing.playandroid.http.RetrofitClient
 import com.xing.playandroid.http.Response
 import com.xing.playandroid.entity.ArticleData
 import com.xing.playandroid.entity.ProjectCategory
+import com.xing.playandroid.entity.SearchHot
 import com.xing.playandroid.params.Page
+import com.xing.playandroid.params.SearchParam
 
 /**
  *
@@ -29,6 +31,14 @@ class PlayRemoteDataSource {
 
     suspend fun getProjectList(page: Page): Response<ArticleData> {
         return RetrofitClient.create(ApiService::class.java).getProjectCategoryList(page.page, page.cid)
+    }
+
+    suspend fun getSearchHot(ss: String): Response<List<SearchHot>> {
+        return RetrofitClient.create(ApiService::class.java).getSearchHot()
+    }
+
+    suspend fun search(searchParam: SearchParam): Response<ArticleData> {
+        return RetrofitClient.create(ApiService::class.java).search(searchParam.k, searchParam.page)
     }
 
 }

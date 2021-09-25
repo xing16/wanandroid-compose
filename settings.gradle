@@ -8,5 +8,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "xueandroid-compose"
+rootProject.name = "playandroid-compose"
 include ':app'

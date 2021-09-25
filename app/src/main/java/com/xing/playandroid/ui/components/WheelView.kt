@@ -26,9 +26,7 @@ import kotlin.math.min
 fun WheelView(modifier: Modifier = Modifier) {
     val list = listOf(20, 70)
     val context = LocalContext.current
-    Canvas(modifier = modifier.fillMaxSize().drawBehind {
-
-    }, onDraw = {
+    Canvas(modifier = modifier.fillMaxSize(), onDraw = {
         val width = size.width
         val height = size.height
         val radius = min(width, height) / 2f
@@ -57,7 +55,7 @@ fun WheelView(modifier: Modifier = Modifier) {
                 it
             }
             var startAngle = 0f
-            val colors = arrayListOf(Color(0xffFF9800), Color(0xffFF5722))
+            val colors = arrayListOf(Color(0xFFE91E63), Color(0xffFFA722))
             list.forEachIndexed { index, value ->
                 val sweepAngle = value * 1.0f / sum * 360
                 drawArc(

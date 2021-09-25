@@ -1,42 +1,55 @@
 package com.xing.playandroid.ui.login
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.xing.playandroid.ui.components.CleanableTextField
 
-@Preview
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavHostController) {
+    val systemUiController = rememberSystemUiController()
+    val useDarkIcons = MaterialTheme.colors.isLight
+    // 设置状态栏颜色透明
+    SideEffect {
+        systemUiController.setStatusBarColor(Color.Transparent, darkIcons = useDarkIcons)
+    }
     val isPasswordLogin = remember {
         mutableStateOf(false)
     }
-    Column {
-        LoginHeader(isPasswordLogin)
-        LoginTitle(isPasswordLogin)
-        LoginForm(isPasswordLogin)
-        LoginThirdSection()
+    Scaffold(
+        modifier = Modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()
+    ) {
+        Column {
+            LoginNavigationBar(isPasswordLogin) {
+                navController.popBackStack()
+            }
+            LoginTitle(isPasswordLogin)
+            LoginForm(isPasswordLogin)
+            LoginThirdSection()
+        }
     }
 }
 
 @Composable
 fun LoginThirdSection() {
-
 
 }
 
@@ -83,8 +96,7 @@ fun LoginForm(isPasswordLogin: MutableState<Boolean>) {
 fun LoginTitle(isPasswordLogin: MutableState<Boolean>) {
     Text(
         text = if (isPasswordLogin.value) "密码登录" else "验证码登录",
-        fontSize = 26.sp,
-        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.h1,
         modifier = Modifier.padding(
             top = 70.dp,
             start = 20.dp,
@@ -94,8 +106,11 @@ fun LoginTitle(isPasswordLogin: MutableState<Boolean>) {
     )
 }
 
+/**
+ * 导航栏
+ */
 @Composable
-fun LoginHeader(isPasswordLogin: MutableState<Boolean>) {
+fun LoginNavigationBar(isPasswordLogin: MutableState<Boolean>, onClose: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -104,17 +119,27 @@ fun LoginHeader(isPasswordLogin: MutableState<Boolean>) {
         Icon(
             Icons.Filled.Close,
             contentDescription = null,
-            modifier = Modifier.padding(15.dp)
+            modifier = Modifier
+                .clickable {
+                    onClose()
+                }
+                .padding(15.dp)
         )
-        Text(
-            text = if (isPasswordLogin.value) "验证码登录" else "密码登录",
+        Button(
+            onClick = { isPasswordLogin.value = !isPasswordLogin.value },
             modifier = Modifier
                 .align(Alignment.CenterEnd)
-                .padding(15.dp)
-                .clickable {
-                    isPasswordLogin.value = !isPasswordLogin.value
-                }
-        )
+                .background(color = Color.Transparent),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+            ),
+            elevation = ButtonDefaults.elevation(defaultElevation = 0.dp, pressedElevation = 0.dp)
+        ) {
+            Text(
+                text = if (isPasswordLogin.value) "验证码登录" else "密码登录",
+                style = MaterialTheme.typography.button
+            )
+        }
     }
 }
 

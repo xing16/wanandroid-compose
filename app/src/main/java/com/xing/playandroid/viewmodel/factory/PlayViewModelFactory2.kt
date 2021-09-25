@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.xing.playandroid.viewmodel.StateFlowViewModel
 import com.xing.playandroid.repository.IPlayRepository
+import com.xing.playandroid.ui.search.SearchViewModel
 
 /**
  *
@@ -16,13 +17,15 @@ import com.xing.playandroid.repository.IPlayRepository
  * @UpdateRemark: 无
  */
 class PlayViewModelFactory2(
-   private val iPlayRepository: IPlayRepository
+    private val iPlayRepository: IPlayRepository
 ) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass == StateFlowViewModel::class.java) {
             return StateFlowViewModel(iPlayRepository) as T
+        } else if (modelClass == SearchViewModel::class.java) {
+            return SearchViewModel(iPlayRepository) as T
         }
         return super.create(modelClass)
     }

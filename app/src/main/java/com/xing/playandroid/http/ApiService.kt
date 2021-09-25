@@ -2,9 +2,8 @@ package com.xing.playandroid.http
 
 import com.xing.playandroid.entity.ArticleData
 import com.xing.playandroid.entity.ProjectCategory
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.xing.playandroid.entity.SearchHot
+import retrofit2.http.*
 
 /**
  *
@@ -41,5 +40,16 @@ interface ApiService {
         @Query("cid") cid: Int
     ): Response<ArticleData>
 
+
+    /**
+     * 项目列表
+     */
+    @GET("hotkey/json")
+    suspend fun getSearchHot(): Response<List<SearchHot>>
+
+
+    @POST("article/query/{page}/json")
+    @FormUrlEncoded
+    suspend fun search(@Field("k") keyword: String, @Path("page") page: Int): Response<ArticleData>
 
 }

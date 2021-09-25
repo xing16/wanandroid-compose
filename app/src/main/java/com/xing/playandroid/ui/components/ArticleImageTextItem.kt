@@ -2,11 +2,14 @@ package com.xing.playandroid.ui.components
 
 import android.text.TextUtils
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,84 +22,83 @@ import com.google.accompanist.placeholder.material.shimmer
 import com.xing.playandroid.entity.Article
 
 @Composable
-fun ArticleImageTextItem(modifier: Modifier = Modifier, childModifier: Modifier = Modifier, article: Article) {
-    Row(
-        modifier = modifier
-            .padding(15.dp)
-            .wrapContentHeight()
-            .fillMaxWidth()
-    ) {
-        Column(
-            verticalArrangement = Arrangement.SpaceBetween,
+fun ArticleImageTextItem(
+    modifier: Modifier = Modifier,
+    childModifier: Modifier = Modifier,
+    article: Article,
+    onItemClick: (Article) -> Unit = {}
+) {
+    Column(modifier = Modifier
+        .clickable {
+            onItemClick(article)
+        }
+        .padding(15.dp)) {
+        Row(
             modifier = modifier
-                .height(90.dp)
-                .weight(1f)
+                .wrapContentHeight()
+                .fillMaxWidth()
         ) {
-            Text(
-                modifier = childModifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(),
-                text = article.title,
-                style = MaterialTheme.typography.h1,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis
-            )
-            if (!TextUtils.isEmpty(article.desc)) {
+            Column(
+                modifier = modifier
+                    .height(90.dp)
+                    .weight(1f)
+            ) {
                 Text(
                     modifier = childModifier
                         .fillMaxWidth()
                         .wrapContentHeight(),
-                    text = article.desc ?: "",
-                    style = MaterialTheme.typography.body1,
-                    maxLines = 1,
+                    text = article.title,
+                    style = MaterialTheme.typography.h2,
+                    maxLines = 3,
                     overflow = TextOverflow.Ellipsis
                 )
+                if (!TextUtils.isEmpty(article.desc)) {
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        modifier = childModifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        text = article.desc ?: "",
+                        style = MaterialTheme.typography.body1,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
             }
-            Row {
-                Text(
-                    modifier = childModifier
-                        .wrapContentWidth()
-                        .wrapContentHeight(),
-                    text = article.author ?: article.shareUser ?: "",
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colors.secondary,
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    modifier = childModifier
-                        .wrapContentWidth()
-                        .wrapContentHeight(),
-                    text = article.niceShareDate ?: "today",
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colors.onSecondary
-                )
-            }
+            Spacer(modifier = Modifier.width(6.dp))
+            Image(
+                modifier = childModifier
+                    .height(100.dp)
+                    .aspectRatio(5 / 6f)
+                    .background(color = Color(0xffdddddd)),
+                painter = rememberCoilPainter(
+                    request = article.envelopePic,
+                    fadeIn = true
+                ),
+                contentDescription = null,
+                contentScale = ContentScale.Crop
+            )
         }
-        Spacer(modifier = Modifier.width(12.dp))
-        Image(
+        Spacer(modifier = Modifier.height(12.dp))
+        Row(
             modifier = childModifier
-                .width(120.dp)
-                .height(90.dp),
-            painter = rememberCoilPainter(
-                request = article.envelopePic,
-                fadeIn = true
-            ),
-            contentDescription = null,
-            contentScale = ContentScale.Crop
-        )
+                .fillMaxWidth()
+                .wrapContentHeight()
+        ) {
+            Text(
+                text = "作者: ",
+                style = MaterialTheme.typography.caption
+            )
+            Text(text = if (TextUtils.isEmpty(article.author)) article.shareUser ?: "-" else article.author ?: "-", style = MaterialTheme.typography.body2)
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(
+                text = "分类: ",
+                style = MaterialTheme.typography.caption
+            )
+            Text(text = article.chapterName ?: "-", style = MaterialTheme.typography.caption)
+            Spacer(modifier = Modifier.width(10.dp))
+            Text(text = "时间: ", style = MaterialTheme.typography.caption)
+            Text(text = article.niceShareDate ?: "-", style = MaterialTheme.typography.caption)
+        }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun cccc() {
-    ArticleImageTextItem(
-        modifier = Modifier,
-        childModifier = Modifier.placeholder(
-            visible = true,
-            highlight = PlaceholderHighlight.shimmer()
-        ),
-        Article(title = "使用Jetpack Compose Theme为app轻松换肤", desc = "casdcasd")
-    )
 }

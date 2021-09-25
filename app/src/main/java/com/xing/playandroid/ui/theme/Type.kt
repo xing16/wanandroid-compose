@@ -10,18 +10,25 @@ import androidx.compose.ui.unit.sp
 val Typography = Typography(
     h1 = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.ExtraBold,
-        fontSize = 17.sp
+        fontWeight = FontWeight.Bold,
+        fontSize = 28.sp,
+        letterSpacing = (1.5).sp
     ),
     h2 = TextStyle(
-        fontFamily = FontFamily.Serif,
-        fontWeight = FontWeight.Medium,
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
+        fontSize = 17.sp,
+        letterSpacing = 0.5.sp
+    ),
+    h3 = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.Bold,
         fontSize = 16.sp
     ),
     subtitle1 = TextStyle(
         fontFamily = FontFamily.Serif,
         fontWeight = FontWeight.Light,
-        fontSize = 14.sp
+        fontSize = 16.sp
     ),
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
@@ -31,18 +38,25 @@ val Typography = Typography(
     body2 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 14.sp
     ),
-    /* Other default text styles to override
     button = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.W500,
-        fontSize = 14.sp
+        fontSize = 15.sp,
+        letterSpacing = 0.4.sp
     ),
     caption = TextStyle(
-        fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
-    )
-    */
+        fontSize = 12.sp,
+        letterSpacing = 0.4.sp
+    ),
+/* Other default text styles to override
+
+caption = TextStyle(
+    fontFamily = FontFamily.Default,
+    fontWeight = FontWeight.Normal,
+    fontSize = 12.sp
+)
+*/
 )
