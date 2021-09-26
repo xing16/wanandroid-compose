@@ -31,6 +31,7 @@ import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
 import com.xing.playandroid.ui.Screen
 import com.xing.playandroid.ui.components.CleanableTextField
+import com.xing.playandroid.ui.components.PlayTextField
 
 @Composable
 fun SearchScreen(appNavController: NavHostController) {
@@ -48,31 +49,29 @@ fun SearchScreen(appNavController: NavHostController) {
             .navigationBarsPadding(),
         topBar = {
             TopAppBar(
-                modifier = Modifier.wrapContentHeight(),
+                modifier = Modifier.height(50.dp),
                 contentPadding = PaddingValues(
                     start = 13.dp,
                     end = 0.dp,
-                    top = 6.dp,
-                    bottom = 6.dp
-                )
+                    top = 3.dp,
+                    bottom = 3.dp
+                ),
+                elevation = 0.dp
             ) {
-                TextField(
-                    value = searchText.value,
-                    onValueChange = {
-//                        text = it
-                    },
+                PlayTextField(
                     modifier = Modifier
                         .weight(1f)
-                        .height(40.dp)
-                        .padding(0.dp)
-                        .clip(RoundedCornerShape(8.dp))
+                        .height(38.dp)
+                        .clip(RoundedCornerShape(3.dp))
+                        .background(color = MaterialTheme.colors.surface.copy(alpha = 0.2f))
                         .onFocusChanged {
                             focused = it.isFocused
                         },
-                    placeholder = {
-//                        Text(text = "输入关键字搜索", style = MaterialTheme.typography.body1)
+                    value = searchText.value,
+                    onValueChange = {
+                        searchText.value = it
                     },
-                    textStyle = TextStyle(fontSize = 12.sp, lineHeight = 30.sp),
+                    placeholderText = "输入关键字搜索",
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = {}),
                     leadingIcon = {
@@ -93,21 +92,15 @@ fun SearchScreen(appNavController: NavHostController) {
                                 }
                             )
                         }
-                    },
-                    singleLine = true,
-                    colors = TextFieldDefaults.textFieldColors(
-                        textColor = Color.White,
-                        backgroundColor = MaterialTheme.colors.onSurface.copy(alpha = 0.15f),
-                        unfocusedIndicatorColor = Color.Transparent,
-                        focusedIndicatorColor = Color.Transparent
-                    )
+                    }
                 )
                 Button(
+                    modifier = Modifier
+                        .fillMaxHeight()
+                        .background(color = Color.Transparent),
                     onClick = {
                         appNavController.popBackStack()
-                    }, modifier = Modifier
-                        .fillMaxHeight()
-                        .background(color = Color.Red)
+                    }
                 ) {
                     Text(
                         text = "取消",
